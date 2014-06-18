@@ -25,7 +25,7 @@ set(TARGET_NAME vrkit)
 message("Project cmake current directory = ${CMAKE_CURRENT_SOURCE_DIR}")
 
 # project source directory
-set(PROJECT_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}/..")
+set(PROJECT_SOURCE_DIR  "${CMAKE_CURRENT_SOURCE_DIR}")
 set(PROJECT_BINARY_DIR ${PROJECT_SOURCE_DIR}/bin)
 set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}) 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
@@ -47,6 +47,9 @@ aux_source_directory(base BASE_SRC_LIST)
 aux_source_directory(language/lib LLIB_SRC_LIST)
 aux_source_directory(language/tool LTOOL_SRC_LIST)
 aux_source_directory(tool TOOL_SRC_LIST)
+
+add_subdirectory(base)
+
 
 add_executable(${TARGET_NAME}
     ${BASE_SRC_LIST}
@@ -77,7 +80,7 @@ find_path(XML2_INCLUDES parser.h
     )
 include_directories(
     ${XML2_INC_DIR}
-    ${PROJECT_SOURCE_DIR}
+    ${PROJECT_INCLUDE_DIR}
     )
 if(WIN32)
     TARGET_LINK_LIBRARIES(${TARGET_NAME} ${XML2_LIBRARY}, src mingw32)

@@ -18,6 +18,9 @@ class Module {
         virtual void getOption(const std::string &val, std::string &val);
         virtual void setOption(const std::string &val, const std::string &val);
         virtual void getAllOptions(std::vector<std::string> &options);
+        virtual const std::string& getTitle();
+    protected:
+        std::string m_title;
 };
 
 } // namespace vrkit

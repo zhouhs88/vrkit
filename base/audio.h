@@ -6,15 +6,18 @@
 #define _VRKIT_AUDIO_H_
 
 #include "base/base.h"
+#include "base/time.h"
+#include "base/memory.h"
+#include "base/osglue.h"
 
 namespace vrkit {
 
 class AudioIn {
     public:
-        AudioIn();
-        virtual ~AudioIn();
+        AudioIn(){}
+        virtual ~AudioIn(){}
         const std::string& getAudioName();
-        virtual int open(MemoryHeap *heap, os::Time *samPeriod, os::Time winDur, os::Time frPeriod);
+        virtual int open(MemoryHeap *heap, Time *samPeriod, Time winDur, Time frPeriod);
         virtual void attachBuffer(int size);
         virtual void start(int sig);
         virtual void stop();
@@ -29,7 +32,6 @@ class AudioIn {
         virtual int  getReplyBuffer(int nsamples, short *buf);
         virtual int controlDevice(int *mask);
     protected:
-        virtual void fillBufferFromAudio(int min);
         virtual void stopAndFlushAudio(bool defered);
         virtual short getSampleFromBuffer();
         static void fillBufferFromAudio(int min);
@@ -38,10 +40,10 @@ class AudioIn {
 
 class AudioOut {
     public:
-        AudioOut();
-        virtual ~AudioOut();
+        AudioOut(){}
+        virtual ~AudioOut(){}
         virtual const std::string& getAudioName();
-        virtual int open(MemoryHeap *heap, os::Time *samPeriod);
+        virtual int open(MemoryHeap *heap, Time *samPeriod);
         virtual void start(long nsamples);
         virtual void playReplayBuffer(AudioIn *in);
         virtual void close();

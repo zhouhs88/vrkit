@@ -91,6 +91,3 @@ bool MetaConfig::getMediaEngine(std::string& val)
     return false;
 } 
 
-void MetaConfig::onConfigurationChanged(ConfigurationEntry entry)
-{
-}

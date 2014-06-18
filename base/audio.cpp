@@ -1,13 +1,12 @@
 //
 //  audio.cpp
 //  audio input and output implementations
-
 #include "base/audio.h"
 #include "base/audio/audio-linux.h"
 
 using namespace vrkit; 
 
-static std::string AudioFactory::m_name;
+std::string AudioFactory::m_name;
 
 AudioFactory::AudioFactory(){}
 AudioFactory::~AudioFactory(){}
@@ -15,6 +14,7 @@ AudioFactory::~AudioFactory(){}
 bool AudioFactory::initialize(const std::string &os)
 {
     AudioFactory::m_name = os;
+    return true;
 }
 
 AudioFactory* AudioFactory::getInstance()

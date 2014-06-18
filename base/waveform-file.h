@@ -5,11 +5,14 @@
 #ifndef _VRKIT_WAVE_FILE_H_
 #define _VRKIT_WAVE_FILE_H_
 
+#include "base/osglue.h"
 #include "base/time.h"
 #include "base/memory.h"
 
 
 namespace vrkit {
+    class Wave;
+    class InputAction;
 
 enum WaveFileFormat {
     WAV,  // Microsoft wave format
@@ -23,9 +26,9 @@ class WaveFormFile {
         // initialize wave form file module
         static int initialize();
         // create wave form file according to format
-        static WaveFormFile*  create(WaveFormFile(MemoryHeap *mem, char *fname,
+        static WaveFormFile*  create(MemoryHeap *mem, char *fname,
                                      WaveFileFormat fmt, Time winDur, Time frPeriod, 
-                                     Time *sampPeriod)throw;
+                                     Time *sampPeriod);
         virtual ~WaveFormFile();
         void zeroWave();
         int  getFramesInWave();
@@ -42,7 +45,7 @@ class WaveFormFile {
     protected:
         std::ifstream *m_file;
         MemoryHeap *m_mem;
-        WaveFileFormat m_format;
+        WaveFileFormat m_fmt;
         bool m_isPipe;
         Time m_sampPeriod;
         int m_hdrSize;

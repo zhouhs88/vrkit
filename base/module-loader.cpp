@@ -6,19 +6,26 @@
 
 using namespace vrkit;
 
-ModuleLoader::Module()
+ModuleLoader::ModuleLoader()
 {}
-ModuleLoader::~Module()
+ModuleLoader::~ModuleLoader()
 {}
 ModuleLoader* ModuleLoader::getInstance()
-{}
+{
+    static ModuleLoader loader;
+    return &loader;
+}
 void ModuleLoader::loadModuleAllModules()
 {}
 void ModuleLoader::terminateAllModules()
 {}
 Module* ModuleLoader::getModule(const std::string &module)
-{}
+{
+    return NULL;
+}
 Module* ModuleLoader::loadModule(const std::string &module)
-{}
+{
+    return NULL;
+}
 void ModuleLoader::terminateModule(const std::string &module)
 {}

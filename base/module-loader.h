@@ -20,8 +20,8 @@ class ModuleLoader {
         Module* loadModule(const std::string &module);
         void terminateModule(const std::string &module);
     private:
-        Module();
-        ~Module();
+        ModuleLoader();
+        ~ModuleLoader();
         std::map<std::string, Module*> m_modules;
 };
 

@@ -5,12 +5,10 @@
 #define _VRKIT_META_CONFIG_H_
 
 #include "base/configuration.h"
-#include <vector>
-#include <string>
 
 namespace vrkit {
     
-    class MetaConfig : public Configuration, ConfigurationListener {
+    class MetaConfig : public Configuration {
         public:
             static MetaConfig* getInstance();
 
@@ -19,9 +17,6 @@ namespace vrkit {
 
             // register configuration items
             void registerConfiguration(Configuration *config);            
-
-            // callback method if configuration change notification change is retrived
-            void onConfigurationChanged(ConfigurationEntry entry);
 
             // has configruation parameter
             bool hasConfigParameter(const char *key, const char *section = NULL);
@@ -33,9 +28,9 @@ namespace vrkit {
             bool get(const char *key, float &val, const char *section = NULL);
 
             // methods form configuration interface
-            bool getSysConfigPath(std::string &path)
-            bool getDataPath(std::string &path)
+            bool getSysConfigPath(std::string &path);
             bool getWorkPath(std::string &path);
+            bool getDataPath(std::string &path);
             bool getLogLevels(std::string &val);
             bool getPluginPath(std::string &val);
             bool getEnginPath(std::string &val);
@@ -51,5 +46,4 @@ namespace vrkit {
     };
 
 }  // namespace vrkit 
-
 #endif // _VRKIT_META_CONFIG_H_

@@ -1,12 +1,15 @@
 
 #include "base/module.h"
+#include "base/meta-config.h"
+#include "base/config/config-file.h"
 #include "base/config/env-config.h"
 #include "base/config/user-config.h"
 #include "base/config/cmdline-config.h"
+#include "base/osglue.h"
 
 using namespace vrkit;
 
-Module::Module(const std::string &name):m_title(name)
+Module::Module(ModuleLoader* loader, const std::string &name)
 {}
 
 Module::~Module()
@@ -18,7 +21,7 @@ bool Module::create(int argc, char *argv[])
         MetaConfig *config = MetaConfig::getInstance();
         
         // parse command line to get options
-        CmdlineConfig *cmdlineConfig = new CommandLineConfig();
+        CommandLineConfig *cmdlineConfig = new CommandLineConfig();
         if (!cmdlineConfig->parse(argc, argv)) {
             os::error("illegal command line option\n");
             delete cmdlineConfig;
@@ -27,21 +30,22 @@ bool Module::create(int argc, char *argv[])
         config->registerConfiguration(cmdlineConfig);
 
         // create environment configuration
-        EnvConfig *envConfig = new EnvironmentConfig();
+        EnvironmentConfig *envConfig = new EnvironmentConfig();
         config->registerConfiguration(envConfig);
 
         // create user Configuration
         std::string configFile;
         if (cmdlineConfig->getConfigFile(configFile)) {
-            UserConfig *userConfig = new UserConfig(config);
+            UserConfig *userConfig = new UserConfig(configFile);
             config->registerConfiguration(userConfig);
         }
-
+#if 0
         // check import options
         if (!checkConfigurations()) {
             os::error("illegal configuration\n");
             return false;
         }
+#endif
     }
     catch (...) {
         std::string name = getTitle();

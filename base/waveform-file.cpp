@@ -3,6 +3,8 @@
 //  speech waveform file input implementation 
 
 #include "base/waveform-file.h"
+#include "base/format/ms-wave.h"
+#include "base/format/aiff-wave.h"
 
 using namespace vrkit;
 
@@ -11,7 +13,7 @@ int WaveFormFile::initialize()
     return 0;
 }
 
-WaveFormFile::Wave()
+WaveFormFile::WaveFormFile()
 {}
 
 WaveFormFile* 
@@ -24,11 +26,11 @@ WaveFormFile::create(MemoryHeap *mem, char *fname, WaveFileFormat fmt,
 
     WaveFormFile *wave = NULL;
     switch (fmt) {
-        case WaveFileFormat::WAV: 
-            wave = new MsWave(); 
+        case WAV: 
+            wave = new MsWave(mem, fname, fmt, winDur, frPeriod, sampPeriod); 
             break;
-        case WaveFileFormat::AIFF: 
-            wave = new AppleWave();
+        case AIFF: 
+            wave = new AIFFWave(mem, fname, fmt, winDur, frPeriod, sampPeriod); 
             break;
         default: 
            return NULL;
@@ -52,7 +54,7 @@ WaveFormFile::create(MemoryHeap *mem, char *fname, WaveFileFormat fmt,
 
 }
 
-WaveFormFile::~Wave()
+WaveFormFile::~WaveFormFile()
 {
 }
 
@@ -72,7 +74,9 @@ void WaveFormFile::appendWaveSample(long nsamples, short *buf)
 {}
 void WaveFormFile::closeWaveOutout(Wave *w, WaveFileFormat fmt, char *name)
 {}
-WaveFormFile:: WaveFormFile::getWaveFormat()
-{}
+WaveFileFormat:: WaveFormFile::getWaveFormat()
+{
+    return m_fmt;
+}
 void WaveFormFile::dumpWaveInfo(std::ostream &os)
 {}

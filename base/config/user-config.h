@@ -8,6 +8,8 @@
 #include <utility>
 
 namespace vrkit {
+    class ConfigFile;
+
     class UserConfig : public Configuration {
         public:
             UserConfig(const std::string& configFile);

@@ -9,12 +9,12 @@
 
 namespace vrkit {
 
-class AudioInLinux : public AudioIN{
+class AudioInLinux : public AudioIn{
     public:
-        AudioInLinux();
-        virtual ~AudioInLinux();
+        AudioInLinux(){}
+        virtual ~AudioInLinux(){}
         const std::string& getAudioName();
-        int open(MemoryHeap *heap, os::Time *samPeriod, os::Time winDur, os::Time frPeriod);
+        int open(MemoryHeap *heap, Time *samPeriod, Time winDur, Time frPeriod);
         void attachBuffer(int size);
         void start(int sig);
         void stop();
@@ -32,16 +32,14 @@ class AudioInLinux : public AudioIN{
         void fillBufferFromAudio(int min);
         void stopAndFlushAudio(bool defered);
         short getSampleFromBuffer();
-        void fillBufferFromAudio(int min);
-        void signalFillBuferAndStopAudio(AudioIn *in); 
 };
 
-class AudioOutLinux : AudioOut {
+class AudioOutLinux : public AudioOut {
     public:
-        AudioOutLinux();
-        ~AudioOutLinux();
+        AudioOutLinux(){}
+        ~AudioOutLinux(){}
         const std::string& getAudioName();
-        int open(MemoryHeap *heap, os::Time *samPeriod);
+        int open(MemoryHeap *heap, Time *samPeriod);
         void start(long nsamples);
         void playReplayBuffer(AudioIn *in);
         void close();
